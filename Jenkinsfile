@@ -55,7 +55,13 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                bat 'kubectl apply -f k8s/'
+                bat '''
+                set KUBECONFIG=C:\\ProgramData\\Jenkins\\.kube\\config
+                kubectl get nodes
+                kubectl apply -f k8s/
+                kubectl get pods
+                kubectl get services
+                '''
             }
         }
 
